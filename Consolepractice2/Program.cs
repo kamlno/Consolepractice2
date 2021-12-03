@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Text;
 
 namespace Consolepractice2
@@ -12,103 +12,117 @@ namespace Consolepractice2
         {
             m_PacketData = new byte[1024];
             m_Pos = 0;
-            int iiii = 109;
-            Write(iiii);
-            float ffff = 109.99f;
-            Write(ffff);
-            string ssss = "Hello";
-            Write(ssss);
+
+            Write(109);
+            Write(109.99f);
+            Write("Hello!");
 
             Console.Write($"Output Byte array(length:{m_Pos}): ");
             for (var i = 0; i < m_Pos; i++)
             {
                 Console.Write(m_PacketData[i] + ", ");
-                
-                if (i == m_Pos-1)
+            }
+
+            for(var i=0;i < m_Pos; i++)
+            {
+                if (i == 3)
                 {
-                    Console.WriteLine("\n");
-                    Console.WriteLine(iiii);
-                    Console.WriteLine(ffff);
-                    Console.WriteLine(ssss);
+                    _Read(m_PacketData);
+                }
+                if (i == 7)
+                {
+                    _Read(m_PacketData);
                 }
             }
-            if(m_Pos<=4)
-            {
-                var buffer = new byte[m_Pos];
-                var request = Encoding.ASCII.GetString(buffer).Substring(0, buffer.Length);
-                Console.WriteLine(request);
-            }
-            
-
         }
 
         // write an integer into a byte array
-        
-        
-        public static void Write(int i)
+        private static bool Write(int i)
         {
             // convert int to byte array
             var bytes = BitConverter.GetBytes(i);
             _Write(bytes);
-            Console.WriteLine(i);
-            _Read(bytes);
-
+            return true;
         }
 
         // write a float into a byte array
-        public static void Write(float f)
+        private static bool Write(float f)
         {
             // convert int to byte array
             var bytes = BitConverter.GetBytes(f);
             _Write(bytes);
-            Console.WriteLine(f);
-            _Read(bytes);
+            return true;
         }
 
         // write a string into a byte array
-        public static void Write(string s)
+        private static bool Write(string s)
         {
             // convert string to byte array
             var bytes = Encoding.Unicode.GetBytes(s);
 
             // write byte array length to packet's byte array
-           
+            if (Write(bytes.Length) == false)
+            {
+                return false;
+            }
 
             _Write(bytes);
-            Console.WriteLine(s);
-            _Read(bytes);
+            return true;
         }
 
         // write a byte array into packet's byte array
         private static void _Write(byte[] byteData)
         {
-            //converter little-endian to network's big-endian
-            if (BitConverter.IsLittleEndian)
-            {
-                Array.Reverse(byteData);
-            }
+            // converter little-endian to network's big-endian
+            //if (BitConverter.IsLittleEndian)
+            //{
+            //    Array.Reverse(byteData);
+            //}
 
             byteData.CopyTo(m_PacketData, m_Pos);
             m_Pos += (uint)byteData.Length;
         }
 
-        public static void _Read(byte[] byteData)
+        private static void _Read(byte[] pkt)
         {
-            byteData.CopyTo(m_PacketData, m_Pos);
-            Console.WriteLine(m_Pos);
-            //while (true)
-            //{
-            //    if (m_Pos != 0 && m_Pos < 4)
-            //    {
-            //        Console.WriteLine(byteData);
-            //    }
-            //    if (m_Pos != 0 && m_Pos < 8)
-            //    {
-            //        Console.WriteLine(byteData.ToString());
-            //    }
+            byte[] forI = new byte[4];
+            byte[] forF = new byte[4];
+            byte[] forS = new byte[8];
 
-            //}
+            for (int i =0;i < m_Pos;i++)
+            {
+
+                if (i < 4)
+                {
+                    forI[i] = pkt[i];
+                }
+                if (i > 4 &&  i < 8)
+                {
+                    forF[i - 4] = pkt[i];
+                }
+                //if (i>16 && i < 24)
+                //{
+                //    forS[i - 8] = pkt[i];
+                //}
+                
+
+            }
+            
+            int ReadI = BitConverter.ToInt32(forI, 0);
+          
+            Console.WriteLine("\n");
+            Console.WriteLine(ReadI);
+
+           
+            float ReadF = BitConverter.ToSingle(forF, 0);
+         
+            Console.WriteLine(ReadF);
+            Console.WriteLine(pkt.Length);
+
+            //string ReadS = Encoding.Unicode.GetString(forS);
+            //Console.WriteLine(forS);
+
         }
-
+        
     }
 }
