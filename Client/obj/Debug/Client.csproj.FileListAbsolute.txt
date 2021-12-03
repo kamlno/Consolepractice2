@@ -1,0 +1,5 @@
+E:\網路資料庫\Example\test\Consolepractice2\Client\bin\Debug\Client.exe.config
+E:\網路資料庫\Example\test\Consolepractice2\Client\bin\Debug\Client.exe
+E:\網路資料庫\Example\test\Consolepractice2\Client\bin\Debug\Client.pdb
+E:\網路資料庫\Example\test\Consolepractice2\Client\obj\Debug\Client.exe
+E:\網路資料庫\Example\test\Consolepractice2\Client\obj\Debug\Client.pdb

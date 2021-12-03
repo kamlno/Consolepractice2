@@ -1,0 +1,6 @@
+E:\網路資料庫\Example\test\Consolepractice2\Consolepractice2\bin\Debug\Consolepractice2.exe.config
+E:\網路資料庫\Example\test\Consolepractice2\Consolepractice2\bin\Debug\Consolepractice2.exe
+E:\網路資料庫\Example\test\Consolepractice2\Consolepractice2\bin\Debug\Consolepractice2.pdb
+E:\網路資料庫\Example\test\Consolepractice2\Consolepractice2\obj\Debug\Consolepractice2.csprojAssemblyReference.cache
+E:\網路資料庫\Example\test\Consolepractice2\Consolepractice2\obj\Debug\Consolepractice2.exe
+E:\網路資料庫\Example\test\Consolepractice2\Consolepractice2\obj\Debug\Consolepractice2.pdb
